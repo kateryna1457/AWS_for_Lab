@@ -18,7 +18,7 @@ with open('cancer_data.csv', 'r') as file:
                        'last_year_of_life_cost': 'last_year_costs'}, inplace=True)
 
 #calculate the number of years in disease for each patient
-df['disease_years'] = round(((df.total - df.first_year_costs) / df.last_year_costs), 1)
+#df['disease_years'] = round(((df.total - df.first_year_costs) / df.last_year_costs), 1)
 #print(df[(df.sex == 'Females')].head())
 
 list_of_years = df['year'].unique()

@@ -4,13 +4,13 @@ from botocore.exceptions import ClientError
 
 ACCESS_KEY = 'AWS_ACCESS_KEY_ID'
 SECRET_KEY = 'AWS_SECRET_ACCESS_KEY'
-PRI_BUCKET_NAME = 'petproject777'
+PRI_BUCKET_NAME = 's3-sourcedata-petproject'
 
 def create_bucket(name, s3, secure = False):
     try:
         s3.create_bucket(Bucket=name,
                         CreateBucketConfiguration={
-                            'LocationConstraint': 'us-east-2'}
+                            'LocationConstraint': 'us-east-1'}
                         )
         if secure:
             prevent_public_access(name, s3)
@@ -40,7 +40,7 @@ def main():
     secret = os.getenv(SECRET_KEY)
     s3 = boto3.resource('s3', aws_access_key_id=access, aws_secret_access_key=secret)
 
-    #create_bucket(PRI_BUCKET_NAME, s3, True)
+    create_bucket(PRI_BUCKET_NAME, s3, True)
 
     #delete_bucket(PRI_BUCKET_NAME, s3)
 
