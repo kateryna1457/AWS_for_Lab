@@ -6,10 +6,10 @@ ACCESS_KEY = 'AWS_ACCESS_KEY_ID'
 SECRET_KEY = 'AWS_SECRET_ACCESS_KEY'
 BUCKET_NAME = 's3-sourcedata-petproject'
 file = '2010.csv'
-DIR = "C:\\Users\\Kateryna_Aleksieieva\\PycharmProjects\\petProject\\CSV_files"
+DIR = ".//CSV_files"
 
 def upload_file(bucket, directory, file, s3, s3path=None):
-    file_path = directory + '/' + file
+    file_path = directory + '//' + file
     remote_path = s3path
     if remote_path is None:
         remote_path = file
