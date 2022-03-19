@@ -5,8 +5,8 @@ from botocore.exceptions import ClientError
 ACCESS_KEY = 'AWS_ACCESS_KEY_ID'
 SECRET_KEY = 'AWS_SECRET_ACCESS_KEY'
 BUCKET_NAME = 's3-sourcedata-petproject'
-file = '2010.csv'
-DIR = ".//CSV_files"
+file = '2019_Oscars.csv'
+DIR = "."
 
 def upload_file(bucket, directory, file, s3, s3path=None):
     file_path = directory + '//' + file

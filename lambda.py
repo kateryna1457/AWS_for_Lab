@@ -13,19 +13,34 @@ def lambda_handler(event, context):
         response = s3_client.get_object(Bucket=bucket, Key=csv_file)
         data = response['Body'].read().decode('utf-8').split('\n')
         del data[0]
-        for disease in data:
-            disease = disease.split(',')
+        dictMovies = dict()
+        for movie in data:
+            oscarNominee = movie.split(',')
+            if oscarNominee[1] not in dictMovies.keys():
+                dictMovies[oscarNominee[1]] = [1, []]
+                dictMovies[oscarNominee[1]][1].append(oscarNominee[0])
+            else:
+                dictMovies[oscarNominee[1]][0] += 1
+                dictMovies[oscarNominee[1]][1].append(oscarNominee[0])
+
+        finalDataSet = []
+        cnt = 0
+        for movie in dictMovies.items():
+            string = '; '.join(movie[1][1])
+            final_string = ','.join([str(cnt), movie[0], str(movie[1][0]), string])
+            cnt += 1
+            finalDataSet.append(final_string)
+
+        for movie in finalDataSet:
+            movie = movie.split(',')
             table.put_item(
-                Item = {
-                    'id': disease[0],
-                    'cancer_site': disease[1],
-                    'year': disease[2],
-                    'sex': disease[3],
-                    'total': disease[4],
-                    'first_year_costs': disease[5],
-                    'last_year_costs': disease[6]
+                Item={
+                    'id': movie[0],
+                    'movie': movie[1],
+                    'nominations': movie[2],
+                    'awards': movie[3]
                 }
-                )
+            )
     except Exception as err:
         print(err)
 
